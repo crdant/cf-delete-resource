@@ -11,7 +11,7 @@ jobs:
   - task: build
     file: source/ci/tasks/build.yml
     params:
-      packageName: ((git-username))/((resource-name))
+      packageName: github.com/((git-username))/((resource-name))
   - task: assets
     file: source/ci/tasks/assets.yml
   - put: resource-image
