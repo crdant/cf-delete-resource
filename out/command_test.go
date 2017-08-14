@@ -32,7 +32,7 @@ var _ = Describe("Out Command", func() {
 				Space:        "volcano-base",
 			},
 			Params: out.Params{
-				application: "foo",
+				Application: "foo",
 			},
 		}
 	})
@@ -73,9 +73,9 @@ var _ = Describe("Out Command", func() {
 			Expect(space).To(Equal("volcano-base"))
 
 			By("deleting the application")
-			Expect(cloudFoundry.RenameCallCount()).To(Equal(1))
+			Expect(cloudFoundry.DeleteCallCount()).To(Equal(1))
 
-			currentName, newName := cloudFoundry.RenameArgsForCall(0)
+			application := cloudFoundry.DeleteArgsForCall(0)
 			Expect(application).To(Equal("foo"))
 		})
 

@@ -44,7 +44,7 @@ var _ = Describe("Out", func() {
 				SkipCertCheck: true,
 			},
 			Params: out.Params{
-				application: "application",
+				Application: "application",
 			},
 		}
 	})

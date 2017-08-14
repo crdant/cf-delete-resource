@@ -36,7 +36,7 @@ func (cf *CloudFoundry) Target(organization string, space string) error {
 }
 
 func (cf *CloudFoundry) Delete(application string) error {
-	args := []string{"rename", application}
+	args := []string{"delete", application}
 	return cf.cf(args...).Run()
 }
 
