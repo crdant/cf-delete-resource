@@ -1,6 +1,6 @@
 # Cloud Foundry Rename Resource
 
-An output only resource (at the moment) that will create/map/unmap routes for cloud foundry.
+An output only resource (at the moment) that will delete an application from cloud foundry.
 
 ## Source Configuration
 
@@ -17,9 +17,8 @@ An output only resource (at the moment) that will create/map/unmap routes for cl
 
 ### `out`: Rename an application
 
-Renames an application in Cloud Foundry.
+Deletes an application in Cloud Foundry.
 
 #### Parameters
 
-* `currentName`: *Required.* The current name of the application.
-* `newName`: *Required.* The name you'd like to give the application.
+* `application`: *Required.* The name of the application.
