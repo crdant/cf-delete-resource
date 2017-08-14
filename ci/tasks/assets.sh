@@ -1,5 +1,6 @@
 #!/bin/sh
 
+set -e
 inputDir= outputDir=
 
 while [ $# -gt 0 ]; do
