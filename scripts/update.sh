@@ -12,24 +12,8 @@ while [ $# -gt 0 ]; do
       credentialsFile=$2
       shift
       ;;
-    -c | --concourse-url )
-      concourseUrl=$2
-      shift
-      ;;
     -t | --target )
       concourseTarget=$2
-      shift
-      ;;
-    -n | --team-name )
-      teamName=$2
-      shift
-      ;;
-    -u | --username )
-      username=$2
-      shift
-      ;;
-    -d | --password )
-      password=$2
       shift
       ;;
     * )
@@ -49,7 +33,6 @@ error_and_exit() {
 }
 
 DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd )
-export concourseUrl=${concourseUrl:-http://192.168.100.4:8080}
 export concourseTarget=${concourseTarget:-lite}
 export pipelineName=${pipelineName:-`basename $DIR`}
 export teamName=${teamName:-main}
@@ -63,15 +46,6 @@ usage() {
   echo "USAGE: ${me} [-t <target>] -p <pipeline-name> -c <credentials-yml>"
 }
 
-loginFlags=
-if [ -n "${username}" ]; then
-  loginFlags="-u ${username}"
-fi
-
-if [ -n "${password}" ]; then
-  loginFlags="${loginFlags} -p ${password}"
-fi
-
 if [ -z "${credentialsFile}" ]; then
   credentialsFile="${DIR}/credentials.yml"
 fi
@@ -81,5 +55,7 @@ if [ ! -f ${credentialsFile} ]; then
 fi
 
 
-fly -t ${concourseTarget} login -c ${concourseUrl} -n ${teamName} ${loginFlags}
-$DIR/bin/update.sh --target ${concourseTarget} --pipeline-name ${pipelineName} --credentials-file ${credentialsFile}
+pushd $DIR
+  fly -t ${concourseTarget} set-pipeline -p ${pipelineName} --config ${DIR}/ci/pipeline.yml --load-vars-from ${DIR}/ci/properties.yml --load-vars-from ${credentialsFile}
+  fly -t ${concourseTarget} unpause-pipeline --pipeline ${pipelineName}
+popd
