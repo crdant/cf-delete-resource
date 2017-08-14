@@ -19,8 +19,8 @@ func NewCommand(paas PAAS) *Command {
 
 func (command *Command) Run(request Request) (Response, error) {
 
-	if len(request.Params.CurrentName) == 0 || len(request.Params.NewName) == 0 {
-		return Response{}, errors.New("Cannot rename without the current and new application names")
+	if len(request.Params.Application) == 0 {
+		return Response{}, errors.New("Cannot rename without an application")
 	}
 
 	err := command.paas.Login(
@@ -41,7 +41,7 @@ func (command *Command) Run(request Request) (Response, error) {
 		return Response{}, err
 	}
 
-	command.paas.Rename(request.Params.CurrentName, request.Params.NewName)
+	command.paas.Delete(request.Params.Application)
 
 	return Response{
 		Version: resource.Version{

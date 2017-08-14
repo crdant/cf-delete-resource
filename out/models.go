@@ -8,7 +8,7 @@ type Request struct {
 }
 
 type Params struct {
-	application string `json:"application"`
+	Application string `json:"application"`
 }
 
 type Response struct {
