@@ -96,7 +96,7 @@ var _ = Describe("Out", func() {
 			Expect(session.Err).To(gbytes.Say("cf api https://api.run.pivotal.io --skip-ssl-validation"))
 			Expect(session.Err).To(gbytes.Say("cf auth awesome@example.com hunter2"))
 			Expect(session.Err).To(gbytes.Say("cf target -o org -s space"))
-			Expect(session.Err).To(gbytes.Say("cf delete application"))
+			Expect(session.Err).To(gbytes.Say("cf delete -f application"))
 
 			// color should be always
 			Expect(session.Err).To(gbytes.Say("CF_COLOR=true"))
