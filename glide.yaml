@@ -1,4 +1,4 @@
-package: .
+package: github.com/crdant/cf-delete-resource
 import:
 - package: github.com/crdant/cf-delete-resource
   subpackages:
